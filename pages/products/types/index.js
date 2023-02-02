@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import Container from "../../../components/container";
 import { AnimatePresence, motion } from "framer-motion";
 import useHttp from "../../../hooks/useHttp";
+import Button from "../../../components/buttons/button";
 
 const ProductTypesPage = (props) => {
     const [types, setTypes] = useState(props.productTypes);
@@ -54,8 +55,8 @@ const ProductTypesPage = (props) => {
 
             <form className="bg-white rounded-md border shadow-md hover:shadow-lg max-w-md mx-auto flex justify-center items-center mt-5 p-3" onSubmit={formSubmitHandler}>
                 <label htmlFor="type">Dodaj typ:</label>
-                <input type="text" id="type" ref={typeInputRef} className="bg-gray-200 py-1.5 px-1 ml-1"></input>
-                <button className="p-2 px-6 bg-green-500 text-white rounded-lg mx-3 hover:bg-green-600">Dodaj</button>
+                <input type="text" id="type" ref={typeInputRef} className="bg-gray-200 py-1.5 px-1 mx-2 self-stretch"></input>
+                <Button classes="p-2 px-6 bg-green-500 hover:bg-green-600">Dodaj</Button>
             </form>
         </Container>
     );
