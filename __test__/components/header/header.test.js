@@ -12,7 +12,7 @@ jest.mock("next/router", () => (
 ));
 
 describe('Header', () => {
-    it('renders a header', () => {
+    it('should render header element', () => {
         render(<Header />);
 
         const logo = screen.getByText(/Strona główna/i);
