@@ -5,11 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Container from "../../components/container";
 import formatDate from "../../utils/formatDate";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import ListItem from "../../components/list/list-item";
 import { AlertContext } from "../../components/store/alerts-context";
 import { v4 as uuidv4 } from "uuid";
 import useHttp from "../../hooks/useHttp";
+import Button from "../../components/buttons/button";
 
 
 const ListDetailsPage = (props) => {
@@ -108,9 +109,9 @@ const ListDetailsPage = (props) => {
                             }
                         </ul>}
                     </div>
-                    <button className="w-max p-1 px-3 ml-5 text-white rounded-md flex items-center bg-fuchsia-500 transition-colors hover:bg-fuchsia-700">Dodaj<FontAwesomeIcon icon={faPlus} /></button>
+                    <Button>Dodaj<FontAwesomeIcon className="ml-2" icon={faPlus} /></Button>
                 </form>
-                <button className="w-max p-1 px-3 ml-5 text-white rounded-md float-right mt-7 bg-fuchsia-500 transition-colors hover:bg-fuchsia-700" onClick={updateCartHandler}>Zapisz</button>
+                <Button onClick={updateCartHandler} classes="ml-5 mt-7 float-right">Zapisz</Button>
             </div>
         </Container>
     );

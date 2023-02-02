@@ -5,6 +5,7 @@ import Container from "../../components/container";
 import isBlank from "../../utils/isBlank";
 import Nutrition from "../../components/nutrition/nutrition";
 import useHttp from "../../hooks/useHttp";
+import Button from "../../components/buttons/button";
 
 const NewProductPage = () => {
     const alertsCtx = useContext(AlertContext);
@@ -82,8 +83,8 @@ const NewProductPage = () => {
                 </div>
 
                 <div className="flex justify-center mt-10">
-                    <button type="reset" className="p-2 px-6 bg-red-500 text-white rounded-lg mx-3 hover:bg-red-600">Anuluj</button>
-                    <button type="submit" className="p-2 px-6 bg-green-500 text-white rounded-lg mx-3 hover:bg-green-600">Dodaj</button>
+                    <Button type="reset" classes="p-2 px-6 bg-red-500 mx-3 hover:bg-red-600">Anuluj</Button>
+                    <Button type="submit" classes="p-2 px-6 bg-green-500 mx-3 hover:bg-green-600">Zapisz</Button>
                 </div>
             </form>
         </Container>
