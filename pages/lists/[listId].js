@@ -11,11 +11,14 @@ import { AlertContext } from "../../components/store/alerts-context";
 import { v4 as uuidv4 } from "uuid";
 import useHttp from "../../hooks/useHttp";
 import Button from "../../components/buttons/button";
+import { CartContext } from "../../components/store/cart-context";
 
 
 const ListDetailsPage = (props) => {
     const alertsCtx = useContext(AlertContext);
     const productsCtx = useContext(ProductsContext);
+    const cartCtx = useContext(CartContext);
+
     const inputProductRef = useRef();
     const [inputQuery, setInputQuery] = useState('');
     const [inputFocus, setInputFocus] = useState(false);
@@ -94,7 +97,7 @@ const ListDetailsPage = (props) => {
                 <ul className="mt-7 mb-1.5">
                     <AnimatePresence>
                         {
-                            products.map((product, index) => <ListItem key={product._id} index={index} {...product} />)
+                            products.map((product, index) => <ListItem key={product._id} index={index} check={cartCtx.addToCopiedItems} uncheck={cartCtx.removeFromCopiedItems} checked={cartCtx.copiedItems.indexOf(product._id) > -1 ? true : false}  {...product} />)
                         }
                     </AnimatePresence>
                 </ul>

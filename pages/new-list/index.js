@@ -4,10 +4,16 @@ import { v4 as uuidv4 } from "uuid";
 import isBlank from "../../utils/isBlank";
 import useHttp from "../../hooks/useHttp";
 import Button from "../../components/buttons/button";
+import { CartContext } from "../../components/store/cart-context";
+import { AnimatePresence } from "framer-motion";
+import { ProductsContext } from "../../components/store/products-context";
 
 const NewListPage = () => {
     const nameRef = useRef();
     const alertsCtx = useContext(AlertContext);
+    const cartCtx = useContext(CartContext);
+    const productsCtx = useContext(ProductsContext);
+
     const AddNewList = useHttp();
 
     const AddAlert = (status, data) => {
@@ -26,10 +32,14 @@ const NewListPage = () => {
 
         const timestamp = new Date().getTime();
 
+        const initialCartItems = cartCtx.copiedItems.map(item => { return { productId: item, amount: 1 } });
+
+        console.log(initialCartItems);
+
         AddNewList({
             url: '/api/new-list',
             method: 'POST',
-            body: { name: enteredName, timestamp: timestamp, products: [] },
+            body: { name: enteredName, timestamp: timestamp, cart: initialCartItems },
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -43,6 +53,15 @@ const NewListPage = () => {
                     <label htmlFor="name" className="block">Nazwa listy:</label>
                     <input type="text" id="name" ref={nameRef} className="w-full border-b-2 border-cyan-500 pt-2 pl-2" />
                 </div>
+
+                <p className="mt-7 font-semibold">Skopiowane produkty:</p>
+                <ul className="my-1.5 list-disc list-inside">
+                    <AnimatePresence>
+                        {
+                            cartCtx.copiedItems.map(item => <li>{productsCtx.products.find(product => product._id === item).name}</li>)
+                        }
+                    </AnimatePresence>
+                </ul>
 
                 <div className="flex justify-center mt-10">
                     <Button type="reset" classes="p-2 px-6 bg-red-500 text-white mx-3 hover:bg-red-600">Anuluj</Button>
