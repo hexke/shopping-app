@@ -36,7 +36,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Stack
 
-- Framework: NextJS (using JavaScript)
-- Database: MongoDB
-- UNIT testing: Jest
-- E2E testing: Cypress [TODO]
+- Framework: [NextJS](https://nextjs.org/)
+- Database: [MongoDB](https://www.mongodb.com/)
+- UNIT testing: [Jest](https://jestjs.io/)
+- E2E testing: [Cypress](https://www.cypress.io/)
+- styling: [TailwindCSS](https://tailwindcss.com/)
+- icons: [fontawesome](https://fontawesome.com/)
