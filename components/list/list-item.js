@@ -24,7 +24,7 @@ const ListItem = (props) => {
             <div className="flex p-1.5">
                 <p className="w-10 items-center justify-center text-cyan-400 flex flex-col text-xl font-semibold border-r border-cyan-400 mr-3">
                     <span>{props.index + 1}</span>
-                    <input type="checkbox" className=" accent-cyan-400 text-white" checked={props.checked} onClick={clickHandler} />
+                    <input type="checkbox" className=" accent-cyan-400 text-white"  defaultChecked={props.checked} onClick={clickHandler} />
                 </p>
                 <p className="grow"><strong>{props.name}</strong><br />ilość: {props.amount}</p>
             </div>
