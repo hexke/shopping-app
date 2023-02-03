@@ -1,6 +1,5 @@
 import { MongoClient, ObjectId } from "mongodb";
 import { useContext, useEffect, useRef, useState } from "react";
-import { ProductsContext } from "../../components/store/products-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Container from "../../components/container";
@@ -12,17 +11,18 @@ import { v4 as uuidv4 } from "uuid";
 import useHttp from "../../hooks/useHttp";
 import Button from "../../components/buttons/button";
 import { CartContext } from "../../components/store/cart-context";
+import useProductsFilter from "../../hooks/useProductsFilter";
 
 
 const ListDetailsPage = (props) => {
     const alertsCtx = useContext(AlertContext);
-    const productsCtx = useContext(ProductsContext);
     const cartCtx = useContext(CartContext);
+
+    const { products: availableProducts, filteredProducts, filterProducts } = useProductsFilter();
 
     const inputProductRef = useRef();
     const [inputQuery, setInputQuery] = useState('');
     const [inputFocus, setInputFocus] = useState(false);
-    const [availableProducts, setAvailableProducts] = useState(productsCtx.products);
     const [products, setProducts] = useState(props.listData.cart);
     const UpdateProductCart = useHttp();
 
@@ -62,7 +62,7 @@ const ListDetailsPage = (props) => {
     }
 
     const addProductToListHandler = (product) => {
-        const newProduct = productsCtx.products.find(prod => prod.name === product.name);
+        const newProduct = availableProducts.find(prod => prod.name === product.name);
 
         let searchedProduct = products.find(prod => prod._id === product._id);
 
@@ -79,7 +79,7 @@ const ListDetailsPage = (props) => {
     };
 
     useEffect(() => {
-        setAvailableProducts(productsCtx.products.filter(product => product.name.includes(inputQuery)));
+        filterProducts(inputQuery);
     }, [inputQuery]);
 
     useEffect(() => {
@@ -104,11 +104,11 @@ const ListDetailsPage = (props) => {
 
                 <form className="flex flex-wrap p-1.5 items-center" onSubmit={submitHandler}>
                     <p className="w-10 items-center justify-center text-cyan-400 flex text-2xl font-semibold border-r border-cyan-400 mr-3 py-1">{products.length + 1}</p>
-                    <div className="flex-auto relative" id="searcher">
+                    <div className="flex-auto relative mr-2" id="searcher">
                         <input type="text" className="border w-full p-1" ref={inputProductRef} onChange={changeHandler} onFocus={focusinHandler} onClick={focusinHandler} />
                         {inputFocus && <ul className="absolute top-full bg-white border shadow-md w-full">
                             {
-                                availableProducts.map(product => <li className="p-1 hover:bg-slate-100 cursor-pointer" key={product.name} onClick={() => { addProductToListHandler(product) }}>{product.name}</li>)
+                                filteredProducts.map(product => <li className="p-1 hover:bg-slate-100 cursor-pointer" key={product.name} onClick={() => { addProductToListHandler(product) }}>{product.name}</li>)
                             }
                         </ul>}
                     </div>
