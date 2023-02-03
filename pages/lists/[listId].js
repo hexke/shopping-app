@@ -1,5 +1,5 @@
 import { MongoClient, ObjectId } from "mongodb";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Container from "../../components/container";
@@ -11,36 +11,19 @@ import { v4 as uuidv4 } from "uuid";
 import useHttp from "../../hooks/useHttp";
 import Button from "../../components/buttons/button";
 import { CartContext } from "../../components/store/cart-context";
-import useProductsFilter from "../../hooks/useProductsFilter";
-
+import Searcher from "../../components/searcher/searcher";
+import useProducts from "../../hooks/useProducts";
 
 const ListDetailsPage = (props) => {
     const alertsCtx = useContext(AlertContext);
     const cartCtx = useContext(CartContext);
 
-    const { products: availableProducts, filteredProducts, filterProducts } = useProductsFilter();
+    const availableProducts = useProducts();
 
-    const inputProductRef = useRef();
-    const [inputQuery, setInputQuery] = useState('');
-    const [inputFocus, setInputFocus] = useState(false);
     const [products, setProducts] = useState(props.listData.cart);
     const UpdateProductCart = useHttp();
 
     const date = formatDate(props.listData.timestamp);
-
-    const changeHandler = () => {
-        const text = inputProductRef.current.value;
-        setInputQuery(text);
-    }
-
-    const focusinHandler = () => {
-        setInputFocus(true);
-    };
-
-    const focusoutHandler = (e) => {
-        if (e.target.closest("#searcher")) return;
-        setInputFocus(false);
-    };
 
     const submitHandler = (e) => e.preventDefault();
 
@@ -75,19 +58,7 @@ const ListDetailsPage = (props) => {
         } else {
             setProducts(prev => [...prev, { ...newProduct, amount: 1 }]);
         }
-        setInputFocus(false);
     };
-
-    useEffect(() => {
-        filterProducts(inputQuery);
-    }, [inputQuery]);
-
-    useEffect(() => {
-        document.addEventListener("click", focusoutHandler);
-        return () => {
-            document.removeEventListener("click", focusoutHandler);
-        }
-    }, []);
 
     return (
         <Container>
@@ -104,14 +75,11 @@ const ListDetailsPage = (props) => {
 
                 <form className="flex flex-wrap p-1.5 items-center" onSubmit={submitHandler}>
                     <p className="w-10 items-center justify-center text-cyan-400 flex text-2xl font-semibold border-r border-cyan-400 mr-3 py-1">{products.length + 1}</p>
-                    <div className="flex-auto relative mr-2" id="searcher">
-                        <input type="text" className="border w-full p-1" ref={inputProductRef} onChange={changeHandler} onFocus={focusinHandler} onClick={focusinHandler} />
-                        {inputFocus && <ul className="absolute top-full bg-white border shadow-md w-full">
-                            {
-                                filteredProducts.map(product => <li className="p-1 hover:bg-slate-100 cursor-pointer" key={product.name} onClick={() => { addProductToListHandler(product) }}>{product.name}</li>)
-                            }
-                        </ul>}
-                    </div>
+                    <Searcher
+                        elements={availableProducts}
+                        searchBy="name"
+                        mapFn={(product) => <li className="p-1 hover:bg-slate-100 cursor-pointer" key={product._id} onClick={() => { addProductToListHandler(product) }}>{product.name}</li>}
+                    />
                     <Button>Dodaj<FontAwesomeIcon className="ml-2" icon={faPlus} /></Button>
                 </form>
                 <Button onClick={updateCartHandler} classes="ml-5 mt-7 float-right">Zapisz</Button>
