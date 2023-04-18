@@ -42,7 +42,7 @@ const NewProductPage = () => {
         }
 
         AddNewProduct({
-            url: '/api/new-product',
+            url: '/api/products/create',
             method: 'POST',
             body: {
                 name: enteredName,

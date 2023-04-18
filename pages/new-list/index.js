@@ -35,7 +35,7 @@ const NewListPage = () => {
         const initialCartItems = cartCtx.copiedItems.map(item => { return { productId: item, amount: 1 } });
 
         AddNewList({
-            url: '/api/new-list',
+            url: '/api/lists/create',
             method: 'POST',
             body: { name: enteredName, timestamp: timestamp, cart: initialCartItems },
             headers: {

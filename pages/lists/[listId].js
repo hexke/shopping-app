@@ -35,7 +35,7 @@ const ListDetailsPage = (props) => {
         let cart = products.map(product => { return { productId: product._id, amount: product.amount } });
 
         UpdateProductCart({
-            url: '/api/update-list',
+            url: '/api/lists/update',
             method: 'PUT',
             body: { id: props.listData.id, cart },
             headers: {
