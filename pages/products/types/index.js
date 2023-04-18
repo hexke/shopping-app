@@ -33,7 +33,7 @@ const ProductTypesPage = (props) => {
         }
 
         AddNewProductType({
-            url: '/api/new-product-type',
+            url: '/api/types/create',
             method: 'POST',
             body: { name: enteredType },
             headers: {
