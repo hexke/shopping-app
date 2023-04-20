@@ -1,10 +1,8 @@
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-
-const List = (props) => {
-
+function List(props) {
     const date = new Date(props.timestamp).toLocaleString();
 
     return (
@@ -13,10 +11,10 @@ const List = (props) => {
             <p className="text-sm font-sans font-semibold text-gray-400 mb-10">{date}</p>
             <Link href={`/lists/${props.id}`} className="border py-1.5 px-5 rounded-xl flex justify-center w-max items-center border-fuchsia-600 text-fuchsia-600 hover:bg-fuchsia-600 hover:text-white transition-colors duration-300 self-end group">
                 więcej
-                <FontAwesomeIcon icon={faArrowRight} className="ml-2 group-hover:translate-x-0.5 transition-transform duration-500"/>
+                <FontAwesomeIcon icon={faArrowRight} className="ml-2 group-hover:translate-x-0.5 transition-transform duration-500" />
             </Link>
         </div>
     );
 }
 
-export default List
+export default List;

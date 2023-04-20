@@ -1,13 +1,16 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
-import { faEdit } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import isBlank from '../../utils/isBlank';
 
-const Product = (props) => {
+function Product(props) {
     return (
         <div className="mx-auto mb-3 last:mb-0 max-w-3xl bg-white shadow-md p-5 rounded-md border hover:shadow-lg">
             <div className="flex border-b text-fuchsia-800 uppercase text-lg mb-2 pb-1 justify-between px-1">
-                <p>{props.name} </p>
+                <p>
+                    {props.name}
+                    {' '}
+                </p>
                 <Link href={`/products/${props.id}`} className="group"><FontAwesomeIcon icon={faEdit} className="group-hover:text-cyan-400 w-4 h-4" /></Link>
             </div>
             <table className="w-full text-center border-collapse">

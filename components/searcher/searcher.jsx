@@ -1,15 +1,16 @@
-import { useState, useCallback, useRef, useEffect } from "react";
-import useFilter from "../../hooks/useFilter";
+import {
+    useState, useCallback, useRef, useEffect,
+} from 'react';
+import useFilter from '../../hooks/useFilter';
 
-const Searcher = ({ elements, searchBy, mapFn }) => {
+function Searcher({ elements, searchBy, mapFn }) {
     const [focused, setFocused] = useState(false);
     const [firstInput, setFirstInput] = useState(true);
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState('');
     const inputRef = useRef();
     const listRef = useRef();
 
     const { filteredElements, filterElements } = useFilter(elements);
-
 
     const focusHandler = useCallback(() => {
         setFocused(true);
@@ -17,12 +18,12 @@ const Searcher = ({ elements, searchBy, mapFn }) => {
     }, []);
 
     const blurHandler = useCallback((e) => {
-        if (e.target.closest(".searcher")) return;
+        if (e.target.closest('.searcher')) return;
         setFocused(false);
         setFirstInput(true);
     }, []);
 
-    const inputHandler = useCallback((e) => {
+    const inputHandler = useCallback(() => {
         setQuery(inputRef.current.value);
 
         if (!firstInput) return;
@@ -30,16 +31,16 @@ const Searcher = ({ elements, searchBy, mapFn }) => {
     }, []);
 
     const listClickHandler = useCallback(() => {
-        inputRef.current.value = "";
+        inputRef.current.value = '';
         setFocused(false);
         setFirstInput(true);
     }, []);
 
     useEffect(() => {
-        document.addEventListener("click", blurHandler);
+        document.addEventListener('click', blurHandler);
         return () => {
-            document.removeEventListener("click", blurHandler);
-        }
+            document.removeEventListener('click', blurHandler);
+        };
     }, []);
 
     useEffect(() => {
@@ -50,10 +51,14 @@ const Searcher = ({ elements, searchBy, mapFn }) => {
         <div className="searcher flex-auto relative mr-2">
             <input type="text" ref={inputRef} className="border w-full p-1" onInput={inputHandler} onFocus={focusHandler} onBlur={blurHandler} placeholder="wsad" />
             {
-                focused && !firstInput &&
-                <ul ref={listRef} onClick={listClickHandler} className="absolute top-full bg-white border shadow-md w-full max-h-40 overflow-y-scroll">
-                    {filteredElements.map(mapFn)}
-                </ul>
+                focused && !firstInput
+                && (
+                    /* eslint-disable */
+                    <ul ref={listRef} onClick={listClickHandler} className="absolute top-full bg-white border shadow-md w-full max-h-40 overflow-y-scroll">
+                        {filteredElements.map(mapFn)}
+                    </ul>
+                    /* eslint-enable */
+                )
             }
         </div>
     );

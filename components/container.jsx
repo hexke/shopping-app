@@ -1,4 +1,4 @@
-const Container = ({ children }) => {
+function Container({ children }) {
     return (
         <div className="container my-10">
             {children}
