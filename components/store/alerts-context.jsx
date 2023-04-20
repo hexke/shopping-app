@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from 'react';
 
 export const AlertContext = createContext({
     alerts: [],
@@ -6,28 +6,28 @@ export const AlertContext = createContext({
     removeAlert: () => { },
 });
 
-const AlertContextProvider = ({ children }) => {
+function AlertContextProvider({ children }) {
     const [alerts, setAlerts] = useState([]);
 
     const addAlertHandler = (alert) => {
-        setAlerts(prev => [...prev, alert] );
-    };
-    
-    const removeAlertHandler = (id) => {
-        setAlerts(prev => prev.filter(alert => alert.id !== id));
+        setAlerts((prev) => [...prev, alert]);
     };
 
-    const contextValue = {
-        alerts: alerts,
-        addAlert: addAlertHandler,
-        removeAlert: removeAlertHandler
+    const removeAlertHandler = (id) => {
+        setAlerts((prev) => prev.filter((alert) => alert.id !== id));
     };
+
+    const contextValue = useMemo({
+        alerts,
+        addAlert: addAlertHandler,
+        removeAlert: removeAlertHandler,
+    });
 
     return (
         <AlertContext.Provider value={contextValue}>
             {children}
         </AlertContext.Provider>
     );
-};
+}
 
 export default AlertContextProvider;

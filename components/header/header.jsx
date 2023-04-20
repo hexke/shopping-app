@@ -1,10 +1,9 @@
-import Link from "next/link";
-import ActiveLink from "./activeLink";
-import classes from "./Header.module.css";
+import Link from 'next/link';
+import ActiveLink from './activeLink';
+import classes from './Header.module.css';
 
-
-const Header = () => {
-    return(
+function Header() {
+    return (
         <header className="py-5 bg-fuchsia-800 text-white text-sm uppercase">
             <div className={`${classes.container} container flex items-center`}>
                 <Link href="/">Strona główna</Link>
