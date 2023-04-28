@@ -19,11 +19,11 @@ function CartContextProvider({ children }) {
         setcopiedItems((prev) => prev.filter((item) => item !== id));
     };
 
-    const contextValue = useMemo({
+    const contextValue = {
         copiedItems,
         addToCopiedItems,
         removeFromCopiedItems,
-    });
+    };
 
     return (
         <CartContext.Provider value={contextValue}>

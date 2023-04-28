@@ -10,7 +10,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": ["error", "windows"],
     "quotes": ["error", "single"],
     "indent": [
       "error",
@@ -25,6 +25,6 @@
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
   }
 }

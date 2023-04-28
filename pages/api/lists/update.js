@@ -24,6 +24,7 @@ async function handler(req, res) {
             } else {
                 res.status(500).json({ message: 'Unknown error' });
             }
+            
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

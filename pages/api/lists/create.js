@@ -16,6 +16,7 @@ async function handler(req, res) {
             client.close();
 
             res.status(201).json({ message: 'Lista została dodana.' });
+            
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

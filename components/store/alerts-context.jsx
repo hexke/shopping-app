@@ -17,11 +17,11 @@ function AlertContextProvider({ children }) {
         setAlerts((prev) => prev.filter((alert) => alert.id !== id));
     };
 
-    const contextValue = useMemo({
+    const contextValue = {
         alerts,
         addAlert: addAlertHandler,
         removeAlert: removeAlertHandler,
-    });
+    };
 
     return (
         <AlertContext.Provider value={contextValue}>

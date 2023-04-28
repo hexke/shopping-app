@@ -6,9 +6,10 @@ import ProductsContextProvider from '../components/store/products-context';
 import '../styles/globals.css';
 
 export default function App({ Component, pageProps }) {
+    
     return (
         <AlertContextProvider>
-            <ProductsContextProvider>
+            <ProductsContextProvider> 
                 <CartContextProvider>
                     <Layout>
                         <Component {...pageProps} />
