@@ -1,7 +1,7 @@
-import Head from 'next/head'
-import { Inter } from '@next/font/google'
+import Head from 'next/head';
+import { Inter } from '@next/font/google';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
     return (
@@ -18,14 +18,14 @@ export default function Home() {
                 </p>
             </div>
         </>
-    )
+    );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     return {
         redirect: {
             destination: '/lists',
             permanent: true,
-        }
-    }
+        },
+    };
 }

@@ -1,13 +1,13 @@
-import { useContext, useRef } from "react";
-import { AlertContext } from "../../components/store/alerts-context";
+import { useContext, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Container from "../../components/container";
-import isBlank from "../../utils/isBlank";
-import Nutrition from "../../components/nutrition/nutrition";
-import useHttp from "../../hooks/useHttp";
-import Button from "../../components/buttons/button";
+import { AlertContext } from '../../components/store/alerts-context';
+import Container from '../../components/container';
+import isBlank from '../../utils/isBlank';
+import Nutrition from '../../components/nutrition/nutrition';
+import useHttp from '../../hooks/useHttp';
+import Button from '../../components/buttons/button';
 
-const NewProductPage = () => {
+function NewProductPage() {
     const alertsCtx = useContext(AlertContext);
     const AddNewProduct = useHttp();
 
@@ -37,7 +37,7 @@ const NewProductPage = () => {
         const enteredSalt = saltRef.current.value;
 
         if (isBlank(enteredName)) {
-            alertsCtx.addAlert({ ok: false, id: uuidv4(), msg: "Name can't be empty" });
+            alertsCtx.addAlert({ ok: false, id: uuidv4(), msg: 'Name can\'t be empty' });
             return;
         }
 
@@ -52,11 +52,11 @@ const NewProductPage = () => {
                 carbohydrates: enteredCarbohydrates,
                 sugars: enteredSugars,
                 protein: enteredProtein,
-                salt: enteredSalt
+                salt: enteredSalt,
             },
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
         }, AddAlert);
     };
 

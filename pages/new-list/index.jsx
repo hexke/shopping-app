@@ -1,14 +1,14 @@
-import { useContext, useRef } from "react";
-import { AlertContext } from "../../components/store/alerts-context";
-import { v4 as uuidv4 } from "uuid";
-import isBlank from "../../utils/isBlank";
-import useHttp from "../../hooks/useHttp";
-import Button from "../../components/buttons/button";
-import { CartContext } from "../../components/store/cart-context";
-import { AnimatePresence } from "framer-motion";
-import { ProductsContext } from "../../components/store/products-context";
+import { useContext, useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { AnimatePresence } from 'framer-motion';
+import { AlertContext } from '../../components/store/alerts-context';
+import isBlank from '../../utils/isBlank';
+import useHttp from '../../hooks/useHttp';
+import Button from '../../components/buttons/button';
+import { CartContext } from '../../components/store/cart-context';
+import { ProductsContext } from '../../components/store/products-context';
 
-const NewListPage = () => {
+function NewListPage() {
     const nameRef = useRef();
     const alertsCtx = useContext(AlertContext);
     const cartCtx = useContext(CartContext);
@@ -26,21 +26,21 @@ const NewListPage = () => {
         const enteredName = nameRef.current.value;
 
         if (isBlank(enteredName)) {
-            alertsCtx.addAlert({ id: uuidv4(), msg: "nazwa nie może być pusta", ok: false });
+            alertsCtx.addAlert({ id: uuidv4(), msg: 'nazwa nie może być pusta', ok: false });
             return;
         }
 
         const timestamp = new Date().getTime();
 
-        const initialCartItems = cartCtx.copiedItems.map(item => { return { productId: item, amount: 1 } });
+        const initialCartItems = cartCtx.copiedItems.map((item) => ({ productId: item, amount: 1 }));
 
         AddNewList({
             url: '/api/lists/create',
             method: 'POST',
-            body: { name: enteredName, timestamp: timestamp, cart: initialCartItems },
+            body: { name: enteredName, timestamp, cart: initialCartItems },
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
         }, AddAlert);
     };
 
@@ -56,7 +56,7 @@ const NewListPage = () => {
                 <ul className="my-1.5 list-disc list-inside">
                     <AnimatePresence>
                         {
-                            cartCtx.copiedItems.map(item => <li>{productsCtx.products.find(product => product._id === item).name}</li>)
+                            cartCtx.copiedItems.map((item) => <li key={item}>{productsCtx.products.find((product) => product._id === item).name}</li>)
                         }
                     </AnimatePresence>
                 </ul>

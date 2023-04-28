@@ -1,17 +1,15 @@
-import Container from "../../components/container";
-import Product from "../../components/product/product";
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
+import Container from '../../components/container';
+import Product from '../../components/product/product';
 
-const ProductListPage = (props) => {
-
+function ProductListPage(props) {
     return (
         <Container>
             {
-                props.products.map(product => <Product key={product.id} {...product} />)
+                props.products.map((product) => <Product key={product.id} {...product} />)
             }
         </Container>
     );
-
 }
 
 export async function getStaticProps() {
@@ -26,7 +24,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            products: products.map(product => ({
+            products: products.map((product) => ({
                 id: product._id.toString(),
                 name: product.name,
                 calories: product.calories,
@@ -35,7 +33,7 @@ export async function getStaticProps() {
                 carbohydrates: product.carbohydrates,
                 sugars: product.sugars,
                 protein: product.protein,
-                salt: product.salt
+                salt: product.salt,
             })),
         },
     };

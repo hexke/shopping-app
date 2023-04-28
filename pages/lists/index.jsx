@@ -1,20 +1,16 @@
-import { MongoClient } from "mongodb";
-import List from "../../components/list/list";
-import Container from "../../components/container";
+import { MongoClient } from 'mongodb';
+import List from '../../components/list/list';
+import Container from '../../components/container';
 
-
-const ListsPage = (props) => {
-
+function ListsPage(props) {
     return (
         <Container>
-            {props.lists.map(list => <List key={list.id} {...list} />)}
+            {props.lists.map((list) => <List key={list.id} {...list} />)}
         </Container>
     );
-
 }
 
 export async function getStaticProps() {
-
     const client = await MongoClient.connect(process.env.DB_HOST);
     const db = client.db();
 
@@ -26,10 +22,10 @@ export async function getStaticProps() {
 
     return {
         props: {
-            lists: lists.map(list => ({
+            lists: lists.map((list) => ({
                 id: list._id.toString(),
                 name: list.name,
-                timestamp: list.timestamp
+                timestamp: list.timestamp,
             })),
         },
     };

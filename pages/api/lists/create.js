@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
 
 async function handler(req, res) {
     if (req.method === 'POST') {
@@ -11,12 +11,11 @@ async function handler(req, res) {
 
             const listsCollection = db.collection('lists');
 
-            const result = await listsCollection.insertOne(data);
+            await listsCollection.insertOne(data);
 
             client.close();
 
             res.status(201).json({ message: 'Lista została dodana.' });
-
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

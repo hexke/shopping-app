@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
 
 async function handler(req, res) {
     if (req.method === 'POST') {
@@ -16,7 +16,6 @@ async function handler(req, res) {
             client.close();
 
             res.status(201).json({ message: 'Dodano nowy typ produktów.', insertedId: result.insertedId });
-
         } catch (error) {
             res.status(500).json({ message: error });
         }
