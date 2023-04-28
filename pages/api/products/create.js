@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
 
 async function handler(req, res) {
     if (req.method === 'POST') {
@@ -20,7 +20,6 @@ async function handler(req, res) {
             } else {
                 res.status(500).json({ message: 'Błąd.' });
             }
-
         } catch (error) {
             res.status(500).json({ message: 'Wystąpił błąd podczas dodawania produktu.' });
         }

@@ -1,8 +1,7 @@
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
 
 async function handler(req, res) {
     if (req.method === 'GET') {
-
         try {
             const client = await MongoClient.connect(process.env.DB_HOST);
 
@@ -15,7 +14,6 @@ async function handler(req, res) {
             client.close();
 
             res.status(200).json(result);
-
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

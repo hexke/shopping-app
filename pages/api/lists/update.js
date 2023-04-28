@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient, ObjectId } from 'mongodb';
 
 async function handler(req, res) {
     if (req.method === 'PUT') {
@@ -11,7 +11,11 @@ async function handler(req, res) {
 
             const listsCollection = db.collection('lists');
 
-            const result = await listsCollection.findOneAndUpdate({ _id: ObjectId(data.id) }, { $set: { "cart": data.cart } }, { new: true });
+            const result = await listsCollection.findOneAndUpdate(
+                { _id: ObjectId(data.id) },
+                { $set: { cart: data.cart } },
+                { new: true },
+            );
 
             client.close();
 
@@ -20,7 +24,6 @@ async function handler(req, res) {
             } else {
                 res.status(500).json({ message: 'Unknown error' });
             }
-
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

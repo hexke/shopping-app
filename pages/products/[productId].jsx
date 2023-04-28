@@ -1,9 +1,12 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient, ObjectId } from 'mongodb';
 
-
-const ProductDetailsPage = (props) => {
+function ProductDetailsPage(props) {
     return (
-        <div>{props.productData.id}::{props.productData.name}</div>
+        <div>
+            {props.productData.id}
+            ::
+            {props.productData.name}
+        </div>
     );
 }
 
@@ -19,12 +22,12 @@ export async function getStaticPaths() {
 
     return {
         fallback: false,
-        paths: products.map(product => ({ params: { productId: product._id.toString() } }))
+        paths: products.map((product) => ({ params: { productId: product._id.toString() } })),
     };
 }
 
 export async function getStaticProps(context) {
-    const productId = context.params.productId;
+    const { productId } = context.params;
 
     const client = await MongoClient.connect(process.env.DB_HOST);
     const db = client.db();
@@ -41,8 +44,8 @@ export async function getStaticProps(context) {
                 id: product._id.toString(),
                 name: product.name,
             },
-        }
-    }
+        },
+    };
 }
 
 export default ProductDetailsPage;

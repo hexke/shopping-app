@@ -28,7 +28,7 @@ function Searcher({ elements, searchBy, mapFn }) {
 
         if (!firstInput) return;
         setFirstInput(false);
-    }, []);
+    }, [firstInput]);
 
     const listClickHandler = useCallback(() => {
         inputRef.current.value = '';
@@ -41,11 +41,11 @@ function Searcher({ elements, searchBy, mapFn }) {
         return () => {
             document.removeEventListener('click', blurHandler);
         };
-    }, []);
+    }, [blurHandler]);
 
     useEffect(() => {
         filterElements((element) => element[searchBy].includes(query));
-    }, [query]);
+    }, [query, filterElements, searchBy]);
 
     return (
         <div className="searcher flex-auto relative mr-2">
@@ -53,11 +53,9 @@ function Searcher({ elements, searchBy, mapFn }) {
             {
                 focused && !firstInput
                 && (
-                    /* eslint-disable */
                     <ul ref={listRef} onClick={listClickHandler} className="absolute top-full bg-white border shadow-md w-full max-h-40 overflow-y-scroll">
                         {filteredElements.map(mapFn)}
                     </ul>
-                    /* eslint-enable */
                 )
             }
         </div>
