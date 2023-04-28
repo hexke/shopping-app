@@ -36,11 +36,11 @@ function ProductsContextProvider({ children }) {
                 .catch((err) => console.log(err));
     }, []);
 
-    const contextValue = useMemo({
+    const contextValue = {
         products,
         setProducts: setAllProducts,
         getProducts,
-    });
+    };
 
     return (
         <ProductsContext.Provider value={contextValue}>
