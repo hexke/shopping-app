@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-export default function Home() {
+function Home() {
     return (
         <>
             <Head>
@@ -9,20 +9,8 @@ export default function Home() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="container">
-                <p>
-                    this main
-                </p>
-            </div>
         </>
     );
 }
 
-export async function getServerSideProps() {
-    return {
-        redirect: {
-            destination: '/lists',
-            permanent: true,
-        },
-    };
-}
+export default Home;
